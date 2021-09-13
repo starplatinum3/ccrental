@@ -1,0 +1,112 @@
+accessible before
+false
+获取到字段：long,值：1
+private static final
+name
+serialVersionUID
+genericType
+long
+accessible before
+false
+获取到字段：java.lang.Integer,值：null
+
+name
+orderId
+genericType
+class java.lang.Integer
+accessible before
+false
+获取到字段：java.lang.Integer,值：null
+private
+name
+promId
+genericType
+class java.lang.Integer
+accessible before
+false
+获取到字段：java.lang.Integer,值：null
+private
+name
+netInId
+genericType
+class java.lang.Integer
+accessible before
+false
+获取到字段：java.lang.Integer,值：null
+private
+name
+userId
+genericType
+class java.lang.Integer
+accessible before
+false
+获取到字段：java.lang.Integer,值：1
+private
+name
+carId
+genericType
+class java.lang.Integer
+accessible before
+false
+获取到字段：java.lang.Integer,值：null
+private
+name
+netOutId
+genericType
+class java.lang.Integer
+accessible before
+false
+获取到字段：java.lang.Integer,值：null
+private
+name
+couponId
+genericType
+class java.lang.Integer
+accessible before
+false
+获取到字段：java.util.Date,值：null
+private
+name
+getTime
+genericType
+class java.util.Date
+accessible before
+false
+获取到字段：java.util.Date,值：null
+private
+name
+retTime
+genericType
+class java.util.Date
+accessible before
+false
+获取到字段：java.lang.Long,值：null
+private
+name
+rentalDur
+genericType
+class java.lang.Long
+accessible before
+false
+获取到字段：java.math.BigDecimal,值：null
+private
+name
+rawPrice
+genericType
+class java.math.BigDecimal
+accessible before
+false
+获取到字段：java.math.BigDecimal,值：null
+private
+name
+finalPrice
+genericType
+class java.math.BigDecimal
+accessible before
+false
+获取到字段：java.lang.Integer,值：null
+private
+name
+status
+genericType
+class java.lang.Integer
