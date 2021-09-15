@@ -83,15 +83,20 @@ public class UiUtil {
 
     }
 
+//    获取 某一行的 数据
     public static List<String> getRowVals(int row, DefaultTableModel model) {
         int columnCount = model.getColumnCount();
         List<String> vals = new ArrayList<>();
         for (int col = 0; col < columnCount; col++) {
 //            Vector dataVector = model.getDataVector();
             String valueAt = (String) model.getValueAt(row, col);
+//            Object valueAt1 = model.getValueAt(row, col);
             vals.add(valueAt);
         }
         return vals;
+
+//       p.setInt( Integer.parseInt(vals.get(0)));
+//       p.setInt( Integer.parseInt(vals.get(0)));
 
     }
 
@@ -453,6 +458,8 @@ public class UiUtil {
 
 //        List<List<String>> tableVals = UiUtil.getTableVals(dataTbl.getTabModel());
 
+//        JTable jTable=new JTable();
+//        DefaultTableModel defaultTableModel=(DefaultTableModel)  jTable.getModel();
         List<String> rowVals = UiUtil.getRowVals(row, dataTbl.getTabModel());
         T t = dataTbl.getAll().get(row);
 

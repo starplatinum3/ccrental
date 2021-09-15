@@ -1,9 +1,12 @@
 package cn.edu.zucc.personplan.util;
 
 import cn.edu.zucc.personplan.model.NetInfo;
+import sun.nio.ch.Net;
 //import com.sun.org.apache.xpath.internal.operations.String;
 
 import java.awt.*;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.*;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
@@ -41,6 +44,28 @@ public class JdbcUtil<T> {
             throw new DbException(ex);
         }
     }
+
+//
+//    public static <T> void insertBatch(Connection conn, String sql, List<T> list) throws DbException {
+//        try {
+////            String sqlUp = "INSERT INTO car_info ( car_id,net_id,type_id,license,car_status )\n" +
+////                    "VALUES\n" +
+////                    "(\n" +
+////                    "    ?,?,?,?,?\n" +
+////                    ");";
+//            PreparedStatement pstByPlanName = conn.prepareStatement(sql);
+//
+//            JdbcUtil.set(pstByPlanName, obj);
+//
+//            pstByPlanName.execute();
+//
+//            pstByPlanName.close();
+//
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//            throw new DbException(ex);
+//        }
+//    }
 
 
     //    public static List<String> getBeanUnderscoreNames(Object object){
@@ -80,8 +105,8 @@ public class JdbcUtil<T> {
                 " (\n " +
                 questionMarks +
                 "  )  ";
-        System.out.println("sql");
-        System.out.println(sql);
+//        System.out.println("sql");
+//        System.out.println(sql);
 
         insert(conn, sql, obj);
 //
@@ -105,6 +130,342 @@ public class JdbcUtil<T> {
 //            throw new DbException(ex);
 //        }
     }
+
+
+    void insert(Connection conn, String sql) throws SQLException {
+        conn.createStatement().execute(sql);
+    }
+
+
+    public static <T> void replaceBatch(Connection conn, List<T> list) throws IllegalAccessException, SQLException {
+
+        doBatch(conn,list,"replace ");
+
+    }
+
+
+    public static <T> void insertBatch(Connection conn, List<T> list) throws IllegalAccessException, SQLException {
+
+        doBatch(conn,list,"insert ");
+//        T obj = list.get(0);
+//        String tableName = obj.getClass().getSimpleName();
+//        tableName = StringUtils.underscoreNameLower(tableName);
+//        List<String> beanUnderscoreNames = getBeanUnderscoreNames(obj);
+//        String join = String.join(",", beanUnderscoreNames);
+////        根据 java类的顺序
+////        System.out.println("collect");
+////        System.out.println(collect);
+//
+////        java 生成 指定大小的
+////        Arrays.fill();
+////        Collection<String> wen = new ArrayList<>();
+////        int size = beanUnderscoreNames.size();
+////        Collections.fill(wen, "?" );
+//
+////        String[] arr = new String[size];
+//////      arr 构造 arr list
+////        Arrays.fill(arr, "?");
+////        List<String> questionMarkList = Arrays.asList(arr);
+////        String questionMarks = String.join(",", questionMarkList);
+//
+////        List<String> wen = new ArrayList<>(Arrays.asList(arr));
+////        java  list fill
+////        wen.
+////        这有必要 prepare吗
+//
+////        String sql = "INSERT INTO " + tableName + " (  " + join + " )\n " +
+////                "VALUES\n" +
+////                " (\n " +
+////                questionMarks +
+////                "  )  ";
+//        StringBuilder sql = new StringBuilder("INSERT INTO " + tableName + " (  " + join + " )   values  ");
+////        System.out.println("sql");
+////        System.out.println(sql);
+//        for (T t : list) {
+//            List<Object> objVals = BeanUtil.getObjVals(t, false);
+//            List<String> collect = objVals.stream().map(JdbcUtil::quotation).collect(Collectors.toList());
+//            String join1 = String.join(",", collect);
+//            sql.append("  (  ").append(join1).append("  ),");
+//        }
+//        sql.deleteCharAt(sql.length() - 1);
+//
+//        System.out.println("sql");
+//        System.out.println(sql);
+////        insert();
+//        conn.createStatement().execute(String.valueOf(sql));
+
+
+//        in
+//        insert(conn, sql, obj);
+//
+//        try {
+//
+////            String sqlUp = "INSERT INTO car_info ( car_id,net_id,type_id,license,car_status )\n" +
+////                    "VALUES\n" +
+////                    "(\n" +
+////                    "    ?,?,?,?,?\n" +
+////                    ");";
+//            PreparedStatement pstByPlanName = conn.prepareStatement(sql);
+//
+//            JdbcUtil.set(pstByPlanName, obj);
+//
+//            pstByPlanName.execute();
+//
+//            pstByPlanName.close();
+//
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//            throw new DbException(ex);
+//        }
+    }
+
+
+    public static <T> void doBatch(Connection conn, List<T> list,String  doString)
+            throws IllegalAccessException,
+            SQLException {
+
+        T obj = list.get(0);
+        String tableName = obj.getClass().getSimpleName();
+        tableName = StringUtils.underscoreNameLower(tableName);
+        List<String> beanUnderscoreNames = getBeanUnderscoreNames(obj);
+        String join = String.join(",", beanUnderscoreNames);
+//        根据 java类的顺序
+//        System.out.println("collect");
+//        System.out.println(collect);
+
+//        java 生成 指定大小的
+//        Arrays.fill();
+//        Collection<String> wen = new ArrayList<>();
+//        int size = beanUnderscoreNames.size();
+//        Collections.fill(wen, "?" );
+
+//        String[] arr = new String[size];
+////      arr 构造 arr list
+//        Arrays.fill(arr, "?");
+//        List<String> questionMarkList = Arrays.asList(arr);
+//        String questionMarks = String.join(",", questionMarkList);
+
+//        List<String> wen = new ArrayList<>(Arrays.asList(arr));
+//        java  list fill
+//        wen.
+//        这有必要 prepare吗
+
+//        String sql = "INSERT INTO " + tableName + " (  " + join + " )\n " +
+//                "VALUES\n" +
+//                " (\n " +
+//                questionMarks +
+//                "  )  ";
+        StringBuilder sql = new StringBuilder(doString+"  INTO " + tableName + " (  " + join + " )   values  ");
+//        System.out.println("sql");
+//        System.out.println(sql);
+        for (T t : list) {
+            List<Object> objVals = BeanUtil.getObjVals(t, false);
+            List<String> collect = objVals.stream().map(JdbcUtil::quotation).collect(Collectors.toList());
+            String join1 = String.join(",", collect);
+            sql.append("  (  ").append(join1).append("  ),");
+        }
+        sql.deleteCharAt(sql.length() - 1);
+
+        System.out.println("sql");
+        System.out.println(sql);
+//        insert();
+        conn.createStatement().execute(String.valueOf(sql));
+//        in
+//        insert(conn, sql, obj);
+//
+//        try {
+//
+////            String sqlUp = "INSERT INTO car_info ( car_id,net_id,type_id,license,car_status )\n" +
+////                    "VALUES\n" +
+////                    "(\n" +
+////                    "    ?,?,?,?,?\n" +
+////                    ");";
+//            PreparedStatement pstByPlanName = conn.prepareStatement(sql);
+//
+//            JdbcUtil.set(pstByPlanName, obj);
+//
+//            pstByPlanName.execute();
+//
+//            pstByPlanName.close();
+//
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//            throw new DbException(ex);
+//        }
+    }
+
+
+    public static String quotation(Object o) {
+        if (o == null) {
+            return null;
+        }
+        return q(o);
+    }
+
+
+    static void insertBatchTest() throws SQLException, DbException, IllegalAccessException {
+        Connection connection = DBUtil.getConnection();
+        List<NetInfo> list = new ArrayList<>();
+        NetInfo netInfo = new NetInfo();
+        netInfo.setAddr("321");
+
+        NetInfo netInfo2 = new NetInfo();
+        netInfo2.setAddr("2");
+
+        NetInfo netInfo3 = new NetInfo();
+        netInfo3.setAddr("3");
+
+        NetInfo netInfo4 = new NetInfo();
+        netInfo4.setAddr("4");
+        list.add(netInfo);
+        list.add(netInfo2);
+        list.add(netInfo3);
+        list.add(netInfo4);
+        insertBatch(connection, list);
+    }
+
+    static void insertBatchTest2() throws SQLException,  IllegalAccessException {
+//        List<NetInfo> list = new ArrayList<>();
+
+        List<NetInfo> list = new ArrayList<>();
+//        NetInfo netInfo = new NetInfo();
+//        netInfo.setAddr("321");
+//
+//        NetInfo netInfo2 = new NetInfo();
+//        netInfo2.setAddr("2");
+//
+//        NetInfo netInfo3 = new NetInfo();
+//        netInfo3.setAddr("3");
+//
+//        NetInfo netInfo4 = new NetInfo();
+//        netInfo4.setAddr("4");
+//        list.add(netInfo);
+//        list.add(netInfo2);
+//        list.add(netInfo3);
+//        list.add(netInfo4);
+        int cnt = 10000;
+        for (int i = 0; i < cnt; i++) {
+            NetInfo netInfo = new NetInfo();
+            netInfo.setAddr("" + i);
+            list.add(netInfo);
+
+        }
+
+        Connection connection = DBUtil.getConnection();
+
+        long start = System.currentTimeMillis();
+
+        insertBatch(connection, list);
+
+        long end = System.currentTimeMillis();
+        long time = end - start;
+        System.out.println("插入 "+cnt+" 条 数据");
+//        System.out.println("插入 "+cnt+" 条 数据");
+        System.out.println(time + "  ms");
+        DBUtil.closeConnection(connection);
+
+    }
+
+
+    static void replaceBatchTest() throws SQLException,  IllegalAccessException {
+//        List<NetInfo> list = new ArrayList<>();
+
+        List<NetInfo> list = new ArrayList<>();
+//        NetInfo netInfo = new NetInfo();
+//        netInfo.setAddr("321");
+//
+//        NetInfo netInfo2 = new NetInfo();
+//        netInfo2.setAddr("2");
+//
+//        NetInfo netInfo3 = new NetInfo();
+//        netInfo3.setAddr("3");
+//
+//        NetInfo netInfo4 = new NetInfo();
+//        netInfo4.setAddr("4");
+//        list.add(netInfo);
+//        list.add(netInfo2);
+//        list.add(netInfo3);
+//        list.add(netInfo4);
+        int cnt = 10000;
+        int no=20000;
+        for (int i = 0; i < cnt; i++) {
+            NetInfo netInfo = new NetInfo();
+            netInfo.setAddr("88888" );
+            netInfo.setNetId( no);
+            no++;
+            list.add(netInfo);
+
+        }
+
+        Connection connection = DBUtil.getConnection();
+
+        long start = System.currentTimeMillis();
+
+//        insertBatch(connection, list);
+        replaceBatch(connection, list);
+
+        long end = System.currentTimeMillis();
+        long time = end - start;
+        try(FileWriter fileWriter=new FileWriter("replace_batch_10000.log")){
+            fileWriter.write("插入 "+cnt+" 条 数据\n");
+            fileWriter.write(time + "  ms\n");
+//            System.out.println(time + "  ms");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        System.out.println("插入 "+cnt+" 条 数据");
+////        System.out.println("插入 "+cnt+" 条 数据");
+//        System.out.println(time + "  ms");
+        DBUtil.closeConnection(connection);
+
+    }
+
+
+    static void insertBatchTestOrigin() throws SQLException, IllegalAccessException, DbException {
+//        List<NetInfo> list = new ArrayList<>();
+
+        List<NetInfo> list = new ArrayList<>();
+//        NetInfo netInfo = new NetInfo();
+//        netInfo.setAddr("321");
+//
+//        NetInfo netInfo2 = new NetInfo();
+//        netInfo2.setAddr("2");
+//
+//        NetInfo netInfo3 = new NetInfo();
+//        netInfo3.setAddr("3");
+//
+//        NetInfo netInfo4 = new NetInfo();
+//        netInfo4.setAddr("4");
+//        list.add(netInfo);
+//        list.add(netInfo2);
+//        list.add(netInfo3);
+//        list.add(netInfo4);
+        int cnt = 10000;
+        for (int i = 0; i < cnt; i++) {
+            NetInfo netInfo = new NetInfo();
+            netInfo.setAddr("" + i);
+            list.add(netInfo);
+
+        }
+
+
+        Connection connection = DBUtil.getConnection();
+        long start = System.currentTimeMillis();
+
+        for (NetInfo netInfo : list) {
+            insert(connection, netInfo);
+        }
+
+
+        long end = System.currentTimeMillis();
+        long time = end - start;
+        System.out.println("插入 "+cnt+" 条 数据");
+        System.out.println("不包括构造数据，循环插入");
+        System.out.println(time + "  ms");
+        DBUtil.closeConnection(connection);
+
+    }
+
 
 
     //    https://www.cnblogs.com/Marydon20170307/p/14149970.html
@@ -170,10 +531,10 @@ public class JdbcUtil<T> {
         return by;
     }
 
-    public static <T> List<T> getBy(T obj,T likeObj) throws DbException, SQLException {
+    public static <T> List<T> getBy(T obj, T likeObj) throws DbException, SQLException {
         Connection conn = DBUtil.getConnection();
         String sql = "select * from  " + getTableName(obj) + "   ";
-        List<T> by = getBy(conn, sql, obj,likeObj,null);
+        List<T> by = getBy(conn, sql, obj, likeObj, null);
 //        dd
         DBUtil.closeConnection(conn);
         return by;
@@ -630,7 +991,12 @@ public class JdbcUtil<T> {
 
     public static void main(String[] args) throws IllegalAccessException, SQLException, DbException {
 //        test5();
-        test9();
+//        test9();
+
+//        insertBatchTest();
+//        insertBatchTest2();
+//        insertBatchTestOrigin();
+        replaceBatchTest();
     }
 
     void test7() throws DbException, SQLException {

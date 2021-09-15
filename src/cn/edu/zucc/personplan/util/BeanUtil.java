@@ -38,6 +38,31 @@ public class BeanUtil {
         return vals;
     }
 
+    public static List<Object> getObjVals(Object object, boolean getStatic) throws IllegalAccessException {
+//		Object st = new String();
+//        List<String> vals = new ArrayList<>();
+        List<Object> vals = new ArrayList<>();
+        Field[] declaredFields = object.getClass().getDeclaredFields();
+        for (Field field : declaredFields) {
+            field.setAccessible(true);
+            Object o = field.get(object);
+//            获取 值
+//            String modifier = Modifier.toString(field.getModifiers());
+            int modifiers = field.getModifiers();
+            if (Modifier.isStatic(modifiers)) {
+                if (!getStatic) {
+                    continue;
+                }
+            }
+            vals.add(o);
+
+
+//            vals.add(String.valueOf(o));
+        }
+        return vals;
+    }
+
+
     //    https://www.jb51.net/article/212718.htm
     public static void getObjectValue(Object object) throws Exception {
         //我们项目的所有实体类都继承BaseDomain （所有实体基类：该类只是串行化一下）

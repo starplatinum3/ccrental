@@ -9,8 +9,11 @@ import cn.edu.zucc.personplan.util.*;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -504,9 +507,36 @@ public class FrmCarAssign extends JFrame implements ActionListener {
         });
     }
 
+//   void  update(){
+////         tddNetInfo.getTabModel();
+//       List<String> rowVals =
+//               UiUtil.getRowVals(tddCarInfo.getSelectedRow(), (DefaultTableModel) tddCarInfo.getModel());
+//       update_sql(rowVals);
+////       CarInfo carInfo = new CarInfo();
+////       carInfo.setCarId(Integer.valueOf(rowVals.get(0)));
+////       carInfo.setNetId(Integer.valueOf(rowVals.get(1)));
+////       carInfo.setCarId(Integer.valueOf(rowVals.get(0)));
+////       carInfo.setCarId(Integer.valueOf(rowVals.get(0)));
+////       carInfo  update
+////       update_sql();
+//
+//   }
+//
+//   void update_sql(List<String> rowVals){
+//       String  sql="update car_info set car_id =? , net_id = ? ";
+////       Container
+//       Connection connection=DBUtil.getConnection();
+//       connection.prepareStatement(sql);
+//       PreparedStatement preparedStatement=
+//   }
 
-    void loadScrap(){
 
+    void loadScrap( ){
+
+//
+//        JTable jTable=new JTable();
+//       int  row = jTable.getSelectedRow();
+//        (De)    jTable.getModel();
         int i = tddCarInfo.getSelectedRow();
 //                这个知道是自己吗
         if (i < 0) {

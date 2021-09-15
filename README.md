@@ -37,3 +37,7 @@ dataSource
                 "&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT");
 dataSource.setDriverClass("com.mysql.jdbc.Driver");
 ```
+
+2021年9月15日12:21:18
+更新 jdbcUtil，增加了 批量插入和批量更新
+批量更新用了mysql的replace into， 估计别的数据库可能是没有的

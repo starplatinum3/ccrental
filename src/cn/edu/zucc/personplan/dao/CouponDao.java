@@ -209,4 +209,15 @@ public class CouponDao implements ItDao<Coupon> {
         }
 
     }
+
+//    void update_sql(List<String> rowVals) throws SQLException {
+//        String  sql="update car_info set car_id =? , net_id = ?, .... where car_id= ?  ";
+////       Container
+//        Connection connection=DBUtil.getConnection();
+//        PreparedStatement preparedStatement1 = connection.prepareStatement(sql);
+//        preparedStatement1.setInt(1,Integer.parseInt(rowVals.get(0)));
+//        preparedStatement1.setInt(2,Integer.parseInt(rowVals.get(1)));
+////        PreparedStatement preparedStatement=
+//    }
+
 }
